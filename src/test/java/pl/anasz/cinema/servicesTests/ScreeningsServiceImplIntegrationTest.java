@@ -51,10 +51,10 @@ public class ScreeningsServiceImplIntegrationTest {
 
 
         Mockito.when(screeningRepository.findRoomIdByScreeningId(screening.getId()))
-                .thenReturn(room.getId());
+                .thenReturn(Optional.of(room.getId()));
 
         Mockito.when(screeningRepository.findRoomIdForScreening(screening.getMovie().getTitle(),screening.getScreeningTime()))
-                .thenReturn(room.getId());
+                .thenReturn(Optional.of(room.getId()));
 
         Mockito.when(screeningRepository.findById(screening.getId()))
                 .thenReturn(Optional.ofNullable(screening));
@@ -63,7 +63,11 @@ public class ScreeningsServiceImplIntegrationTest {
     @Test
     public void whenValidScreeningId_thenRoomShouldBeFound(){
         long screeningId = 10;
-        long foundRoomId = screeningsService.findRoomIdByScreeningId(screeningId);
+        Optional<Long> foundRoomIdOptional = screeningsService.findRoomIdByScreeningId(screeningId);
+        long foundRoomId = -1;
+        if(foundRoomIdOptional.isPresent()){
+            foundRoomId = foundRoomIdOptional.get();
+        }
 
         assertThat(foundRoomId).isEqualTo(screeningId);
     }
@@ -73,7 +77,12 @@ public class ScreeningsServiceImplIntegrationTest {
         String movieTitle = "Chilling adventures of Sabrina";
         LocalDateTime screeningDate = LocalDateTime.of(2019, 4,12,12, 0, 0);
 
-        long foundRoomId = screeningsService.findRoomIdForScreening(movieTitle,screeningDate);
+        Optional<Long> foundRoomIdOptional = screeningsService.findRoomIdForScreening(movieTitle,screeningDate);
+        long foundRoomId = -1;
+
+        if(foundRoomIdOptional.isPresent()){
+            foundRoomId = foundRoomIdOptional.get();
+        }
 
         assertThat(foundRoomId).isEqualTo(room.getId());
     }
