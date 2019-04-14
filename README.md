@@ -1,5 +1,5 @@
 # CinemaReservationsApi
-REST api for cinema reservations system - written in Java with Spring framework.
+REST api for cinema reservations system - written in Java (1.8) with Spring framework.
 Project is using H2 in memory database initialized with basic test data.
 There is no frontend created - only REST api.
 

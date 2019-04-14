@@ -15,6 +15,7 @@ import pl.anasz.cinema.repositories.ScreeningRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -51,7 +52,12 @@ public class ScreeningRepositoryTest {
     @Test
     public void whenFindRoomIdForScreening_thenReturnRoom(){
         //when
-        long foundRoomId = screeningRepository.findRoomIdForScreening(screening.getMovie().getTitle(),screening.getScreeningTime());
+        Optional<Long> foundRoomIdOptional = screeningRepository.findRoomIdForScreening(screening.getMovie().getTitle(),screening.getScreeningTime());
+        long foundRoomId = -1;
+
+        if(foundRoomIdOptional.isPresent()){
+            foundRoomId = foundRoomIdOptional.get();
+        }
 
         //then
         Assert.assertEquals(foundRoomId,screening.getRoomId());
@@ -72,7 +78,12 @@ public class ScreeningRepositoryTest {
     @Test
     public void whenFindRoomIdByScreeningId_thenReturnRoomId(){
         //when
-        long foundRoomId = screeningRepository.findRoomIdByScreeningId(screening.getId());
+        Optional<Long> foundRoomIdOptional = screeningRepository.findRoomIdByScreeningId(screening.getId());
+        long foundRoomId = -1;
+
+        if(foundRoomIdOptional.isPresent()){
+            foundRoomId = foundRoomIdOptional.get();
+        }
 
         //then
         Assert.assertEquals(foundRoomId,screening.getRoomId());
