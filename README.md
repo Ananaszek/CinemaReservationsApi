@@ -6,6 +6,9 @@ There is no frontend created - only REST api.
 ## Build and run
 To build and run application go to file 'src/scripts' and run script called "run.sh"
 
+### Build with
+* [Maven](https://maven.apache.org/) - Dependency Management
+
 ## Demo 
 To run demo based on curls go to file 'src/scripts' and run script called "useCase.sh". Use case covers basic path where user can see the list of movies in interval he chose, then booker (user) can choose screening and book seats, finally user can see expiration date for reservation and how much he has to pay. 
 
